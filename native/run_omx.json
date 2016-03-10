@@ -1,0 +1,10 @@
+{
+  "manifest_version": 2,
+  "name": "run_omx",
+  "description": "Run youtube-dl and pass the URL to omxplayer",
+  "path": "/usr/local/bin/run_omxplayer.py",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://gplnamlbakdpclgmclnhmkeilpdckael/"
+  ]
+}
