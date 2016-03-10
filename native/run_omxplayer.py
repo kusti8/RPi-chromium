@@ -3,6 +3,15 @@ import struct
 import sys
 import json
 import subprocess
+import urllib2
+
+VERSION=0.1
+
+def check_update():
+    new_py = urllib2.urlopen("https://raw.githubusercontent.com/kusti8/Rpi-youtube/master/native/run_omxplayer.py").read()
+    old_py = open("/usr/local/bin/run_omxplayer.py").read()
+    if new_py is not old_py:
+        open("/usr/local/bin/run_omxplayer.py", 'w').write(new_py)
 
 def read_thread_func():
   message_number = 0
@@ -14,8 +23,10 @@ def read_thread_func():
   text = sys.stdin.read(text_length).decode('utf-8')
   return text
 
+
 url = json.loads(read_thread_func())['text']
 print 'OK'
 process = subprocess.Popen(['youtube-dl', '-g', url], stdout=subprocess.PIPE)
 video_url,err = process.communicate()
-subprocess.call(['omxplayer', url])
+subprocess.call(['omxplayer', video_url])
+check_update()
