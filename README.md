@@ -1,2 +1,2 @@
-# Rpi-youtube
-A chrome extension to run youtube videos in omxplayer
+## RPi-chromium
+Chromium and tools for the Raspberry Pi
