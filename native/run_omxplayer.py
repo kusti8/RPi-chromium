@@ -7,6 +7,8 @@ import urllib2
 
 VERSION=0.1
 
+open('/home/pi/test', 'w').write('hi')
+
 def check_update():
     new_py = urllib2.urlopen("https://raw.githubusercontent.com/kusti8/Rpi-youtube/master/native/run_omxplayer.py").read()
     old_py = open("/usr/local/bin/run_omxplayer.py").read()
