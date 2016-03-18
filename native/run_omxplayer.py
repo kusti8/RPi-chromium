@@ -10,10 +10,10 @@ VERSION=0.1
 open('/home/pi/test', 'w').write('hi')
 
 def check_update():
-    new_py = urllib2.urlopen("https://raw.githubusercontent.com/kusti8/Rpi-youtube/master/native/run_omxplayer.py").read()
-    old_py = open("/usr/local/bin/run_omxplayer.py").read()
+    new_py = urllib2.urlopen("https://raw.githubusercontent.com/kusti8/RPi-chromium/master/native/run_omxplayer.py").read()
+    old_py = open("/home/pi/RPi-chromium/native/run_omxplayer.py").read()
     if new_py is not old_py:
-        open("/usr/local/bin/run_omxplayer.py", 'w').write(new_py)
+        open("/home/pi/RPi-chromium/native/run_omxplayer.py", 'w').write(new_py)
 
 def read_thread_func():
   message_number = 0
