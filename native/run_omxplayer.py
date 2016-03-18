@@ -5,7 +5,7 @@ import json
 import subprocess
 import urllib2
 
-VERSION=0.1
+VERSION=0.2
 
 open('/home/pi/test', 'w').write('hi')
 
