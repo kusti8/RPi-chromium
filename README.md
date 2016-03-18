@@ -2,7 +2,7 @@
 Chromium tools for the Raspberry Pi
 
 ## Install
-You must have Chromium installed: 
+You must have Chromium installed: https://www.raspberrypi.org/forums/viewtopic.php?t=121195
 To the local youtube extension, run this:
 `./install`
 
