@@ -23,6 +23,7 @@ else
 echo "youtube-dl from github not found"
 fi
 EOL
+chmod +x update-youtube.sh
 ln -s /home/pi/RPi-chromium/native/run_omxplayer.py /usr/bin/run_omxplayer.py
 mkdir /etc/chromium-browser/native-messaging-hosts
 cp /home/pi/RPi-chromium/native/run_omx.json /etc/chromium-browser/native-messaging-hosts/run_omx.json
