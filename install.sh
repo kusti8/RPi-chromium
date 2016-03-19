@@ -8,7 +8,7 @@ file=__main__.py
 maxsize=1000
 if [ -d ~/youtube-dl ]
 then
-cd ~/youtube-dl
+cd ~/RPi-chromium/youtube-dl
 git pull
 cd youtube_dl
 actualsize=$(wc -c "$file" | cut -f 1 -d ' ')
