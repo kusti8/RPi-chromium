@@ -4,6 +4,7 @@ import sys
 import json
 import subprocess
 import urllib2
+import os
 
 VERSION=0.2
 
@@ -31,5 +32,5 @@ print 'OK'
 process = subprocess.Popen(['youtube-dl', '-g', url], stdout=subprocess.PIPE)
 video_url,err = process.communicate()
 video_url = '"' + video_url + '"'
-subprocess.Popen('omxplayer ' + video_url, shell=True)
+os.popen('omxplayer ' + video_url)
 check_update()
