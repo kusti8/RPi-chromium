@@ -2,7 +2,7 @@ sudo apt-get install git omxplayer -y
 git clone git://github.com/rg3/youtube-dl
 cd /usr/bin
 sudo ln -s /home/pi/RPi-chromium/youtube-dl/youtube_dl/__main__.py youtube-dl
-cat > update-youtube.sh << EOL
+cat >update-youtube.sh <<EOL
 #!/bin/sh
 file=__main__.py
 maxsize=1000
