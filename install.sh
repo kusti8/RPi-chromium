@@ -1,8 +1,8 @@
-sudo apt-get install git omxplayer -y
+apt-get install git omxplayer -y
 git clone git://github.com/rg3/youtube-dl
 cd /usr/bin
-sudo ln -s /home/pi/RPi-chromium/youtube-dl/youtube_dl/__main__.py youtube-dl
-sudo cat >update-youtube.sh <<EOL
+ln -s /home/pi/RPi-chromium/youtube-dl/youtube_dl/__main__.py youtube-dl
+cat >update-youtube.sh <<EOL
 #!/bin/sh
 file=__main__.py
 maxsize=1000
@@ -23,7 +23,7 @@ else
 echo "youtube-dl from github not found"
 fi
 EOL
-sudo ln -s /home/pi/RPi-chromium/native/run_omxplayer.py /usr/bin/run_omxplayer.py
-sudo mkdir /etc/chromium-browser/native-messaging-hosts
-sudo cp /home/pi/RPi-chromium/native/run_omx.json /etc/chromium-browser/native-messaging-hosts/run_omx.json
+ln -s /home/pi/RPi-chromium/native/run_omxplayer.py /usr/bin/run_omxplayer.py
+mkdir /etc/chromium-browser/native-messaging-hosts
+cp /home/pi/RPi-chromium/native/run_omx.json /etc/chromium-browser/native-messaging-hosts/run_omx.json
 echo "Done! Now install the RPi-youtube extension."
