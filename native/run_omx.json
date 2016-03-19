@@ -5,6 +5,6 @@
   "path": "/usr/local/bin/run_omxplayer.py",
   "type": "stdio",
   "allowed_origins": [
-    "chrome-extension://gplnamlbakdpclgmclnhmkeilpdckael/"
+    "chrome-extension://laacchpjldmpbhkcjfmfcjijaekhhlgn/"
   ]
 }
