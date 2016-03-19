@@ -31,6 +31,5 @@ url = json.loads(read_thread_func())['text']
 print 'OK'
 process = subprocess.Popen(['youtube-dl', '-g', url], stdout=subprocess.PIPE)
 video_url,err = process.communicate()
-video_url = '"' + video_url + '"'
-os.popen('omxplayer ' + video_url)
+subprocess.call('lxterminal -e omxplayer -o hdmi "' + video_url + '"', shell=True)
 check_update()
