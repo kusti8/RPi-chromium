@@ -6,9 +6,9 @@ cat >update-youtube.sh <<EOL
 #!/bin/sh
 file=__main__.py
 maxsize=1000
-if [ -d ~/RPi-chromiumyoutube-dl ]
+if [ -d /home/pi/RPi-chromiumyoutube-dl ]
 then
-cd ~/RPi-chromium/youtube-dl
+cd /home/pi/RPi-chromium/youtube-dl
 git pull
 cd youtube_dl
 actualsize=$(wc -c "$file" | cut -f 1 -d ' ')
