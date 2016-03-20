@@ -18,6 +18,7 @@ def check_update():
     old_py = open("/usr/bin/run_omxplayer.py").read()
     if new_py is not old_py:
         open("/usr/bin/run_omxplayer.py", 'w').write(new_py)
+    subprocess.call("update-youtube.sh", shell=True)
 
 def read_thread_func():
   message_number = 0
