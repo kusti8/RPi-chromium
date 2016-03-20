@@ -8,7 +8,7 @@ import os
 
 VERSION=0.2
 
-open('/home/pi/test', 'w').write('hi')
+#open('/home/pi/test', 'w').write('hi')
 
 def check_update():
     new_py = urllib2.urlopen("https://raw.githubusercontent.com/kusti8/RPi-chromium/master/native/run_omxplayer.py").read()
