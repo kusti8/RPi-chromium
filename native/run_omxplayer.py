@@ -10,7 +10,7 @@ VERSION=0.4
 
 if sys.argv[1] == "-U":
     check_update()
-    print "Done with the update!"
+    print "Done with the update! If any error, remember to use sudo run_omxplayer.py!!!"
     sys.exit(0)
 elif len(sys.argv) == 1:
     pass
