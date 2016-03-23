@@ -24,7 +24,7 @@ def check_update():
         open("/usr/bin/run_omxplayer.py", 'w').write(new_py)
     new_man = urllib2.urlopen("https://raw.githubusercontent.com/kusti8/RPi-chromium/master/native/run_omx.json").read()
     old_man = open("/etc/chromium-browser/native-messaging-hosts/run_omx.json")
-    if new_man is not old_man
+    if new_man is not old_man:
         open("/etc/chromium-browser/native-messaging-hosts/run_omx.json", "w").write(new_man)
     subprocess.call("update-ytdl", shell=True)
 
