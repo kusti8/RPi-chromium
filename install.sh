@@ -8,7 +8,7 @@ tar -xzf **FILE**
 cd **FOLDER**
 ./installomxplayergui
 ginstall-ytdl
-ln -s "$CURRENT/native/run_omxplayer.py" /usr/bin/run_omxplayer.py
+cp "$CURRENT/native/run_omxplayer.py" /usr/bin/run_omxplayer.py
 mkdir /etc/chromium-browser/native-messaging-hosts
 cp "$CURRENT/native/run_omx.json" /etc/chromium-browser/native-messaging-hosts/run_omx.json
 echo "Done! Now install the RPi-youtube extension."
