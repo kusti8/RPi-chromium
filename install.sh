@@ -3,8 +3,7 @@ git clone git://github.com/rg3/youtube-dl
 CURRENT=$(pwd)
 cd /usr/bin
 sudo ln -s "$CURRENT/youtube-dl/youtube_dl/__main__.py" youtube-dl
-cat > update-youtube.sh << EOF
-ln -s /home/pi/RPi-chromium/youtube-dl/youtube_dl/__main__.py youtube-dl
+
 cat >update-youtube.sh <<EOL
 #!/bin/sh
 file=__main__.py
@@ -25,7 +24,7 @@ fi
 else
 echo "youtube-dl from github not found"
 fi
-EOF
+EOL
 sudo ln -s "$CURRENT/native/run_omxplayer.py" /usr/bin/run_omxplayer.py
 sudo mkdir /etc/chromium-browser/native-messaging-hosts
 sudo cp "$CURRENT/native/run_omx.json" /etc/chromium-browser/native-messaging-hosts/run_omx.json
