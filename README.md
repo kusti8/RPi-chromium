@@ -1,5 +1,5 @@
 # RPi-chromium
-Chromium tools for the Raspberry Pi
+Chromium tools for the Raspberry Pi. This includes RPi-youtube which uses omxplayerGUI to play youtube videos at the click of a button.
 
 ## Install
 First clone this: `git clone https://github.com/kusti8/RPi-chromium`
@@ -13,4 +13,4 @@ The installer will install youtube-dl and the native script. **You must install 
 This is currently a git for various Chromium additions to make it run smoother on the raspberry pi, starting with the youtube local extension. It is currently in beta, but getting more stable.
 
 ## Limitations
-Right now, it's bare minimum. You can't change the omxplayer options and it only works if installed in the /home/pi directory. These are actively being worked on.
+Right now, it's bare minimum. Some omxplayer options cannot be changed through the script, but through omxplayerGUI options, which are a little less intuitive. 
