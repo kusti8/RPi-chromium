@@ -6,12 +6,7 @@ import subprocess
 import urllib2
 import os
 
-VERSION=0.3
-
-HEIGHT=640
-WIDTH=480
-FULLSCREEN=0
-HDMI=1
+VERSION=0.4
 
 def check_update():
     new_py = urllib2.urlopen("https://raw.githubusercontent.com/kusti8/RPi-chromium/master/native/run_omxplayer.py").read()
@@ -33,15 +28,5 @@ def read_thread_func():
 
 url = json.loads(read_thread_func())['text']
 print 'OK'
-process = subprocess.Popen(['youtube-dl', '-g', url], stdout=subprocess.PIPE)
-video_url,err = process.communicate()
-subprocess_string = 'lxterminal -e omxplayer'
-if FULLSCREEN == 0:
-    subprocess_string = subprocess_string + ' --win "0 0 %s %s"' % (WIDTH, HEIGHT)
-if HDMI == 1:
-    subprocess_string = subprocess_string + ' -o hdmi'
-else:
-    subprocess_string = subprocess_string + ' -o local'
-    
-subprocess.call(subprocess_string + ' "' + video_url.rstrip() + '"', shell=True)
+subprocess.call("omxplayergui.py ytdl " + url, shell=True)
 check_update()
