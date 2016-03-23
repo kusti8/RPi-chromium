@@ -20,7 +20,7 @@ def check_update():
     if new_man is not old_man:
         open("run_omx.json", "w").write(new_man)
         subprocess.call("sudo mv run_omx.json /etc/chromium-browser/native-messaging-hosts/run_omx.json", shell=True)
-    subprocess.call('update-ytdl", shell=True)
+    subprocess.call("update-ytdl", shell=True)
 
 
 
