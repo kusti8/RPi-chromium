@@ -6,7 +6,7 @@ First clone this: `git clone https://github.com/kusti8/RPi-chromium`
 Then, change into it: `cd RPi-chromium`
 You must have Chromium installed: https://www.raspberrypi.org/forums/viewtopic.php?t=121195
 To install the local youtube extension, run this:
-`sudo bash install.sh`
+`./install.sh`
 The installer will install youtube-dl and the native script. **You must install the chrome extension!** https://chrome.google.com/webstore/detail/rpi-youtube/laacchpjldmpbhkcjfmfcjijaekhhlgn
 
 ## What is this?
