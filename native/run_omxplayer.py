@@ -28,9 +28,9 @@ if len(sys.argv) > 1:
     if sys.argv[1] == '-U':
         check_update()
         sys.exit(0)
-    else:
-        print "Invalid command line option!\nTo update: run_omxplayer.py -U"
-        sys.exit(0)
+else:
+    print "Invalid command line option!\nTo update: run_omxplayer.py -U"
+    sys.exit(0)
     
 def read_thread_func():
   message_number = 0
