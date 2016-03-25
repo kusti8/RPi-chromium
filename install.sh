@@ -1,8 +1,8 @@
-Y_LOC = $HOME
+Y_LOC=$HOME
 sudo -s <<EOF
 apt-get install omxplayer -y
 CURRENT=$(pwd)
-HOME = $Y_LOC
+HOME=$Y_LOC
 wget http://steinerdatenbank.de/software/kweb-1.6.9.tar.gz
 tar -xzf kweb-1.6.9.tar.gz
 cd kweb-1.6.9
