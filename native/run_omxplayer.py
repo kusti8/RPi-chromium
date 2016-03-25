@@ -25,7 +25,7 @@ def check_update():
 
 
 if len(sys.argv) > 1:
-    if sys.argv[1] == '-U'
+    if sys.argv[1] == '-U':
         check_update()
         sys.exit(0)
     else:
