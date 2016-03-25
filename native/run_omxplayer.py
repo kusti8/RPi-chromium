@@ -23,7 +23,7 @@ def check_update():
     subprocess.call("update-ytdl", shell=True)
 
 
-open('/home/pi/test', 'w').write(''.join(sys.argv))
+#open('/home/pi/test', 'w').write(''.join(sys.argv))
 if len(sys.argv) > 1:
     if sys.argv[1] == '-U':
         check_update()
