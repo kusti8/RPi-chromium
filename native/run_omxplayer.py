@@ -6,16 +6,32 @@ import subprocess
 import urllib2
 import os
 
-VERSION=0.2
+VERSION=0.4
 
-#open('/home/pi/test', 'w').write('hi')
 
 def check_update():
     new_py = urllib2.urlopen("https://raw.githubusercontent.com/kusti8/RPi-chromium/master/native/run_omxplayer.py").read()
     old_py = open("/usr/bin/run_omxplayer.py").read()
     if new_py is not old_py:
-        open("/usr/bin/run_omxplayer.py", 'w').write(new_py)
+        open("run_omxplayer.py", 'w').write(new_py)
+        subprocess.call("sudo mv run_omxplayer.py /usr/bin/run_omxplayer.py", shell=True)
+    new_man = urllib2.urlopen("https://raw.githubusercontent.com/kusti8/RPi-chromium/master/native/run_omx.json").read()
+    old_man = open("/etc/chromium-browser/native-messaging-hosts/run_omx.json")
+    if new_man is not old_man:
+        open("run_omx.json", "w").write(new_man)
+        subprocess.call("sudo mv run_omx.json /etc/chromium-browser/native-messaging-hosts/run_omx.json", shell=True)
+    subprocess.call("update-ytdl", shell=True)
 
+
+open('/home/pi/test', 'w').write(''.join(sys.argv))
+if len(sys.argv) > 1:
+    if sys.argv[1] == '-U':
+        check_update()
+        sys.exit(0)
+else:
+    print "Invalid command line option!\nTo update: run_omxplayer.py -U"
+    sys.exit(0)
+    
 def read_thread_func():
   message_number = 0
   # Read the message length (first 4 bytes).
@@ -29,7 +45,4 @@ def read_thread_func():
 
 url = json.loads(read_thread_func())['text']
 print 'OK'
-process = subprocess.Popen(['youtube-dl', '-g', url], stdout=subprocess.PIPE)
-video_url,err = process.communicate()
-subprocess.call('lxterminal -e omxplayer -o hdmi --win "0 0 1280 720" "' + video_url.rstrip() + '"', shell=True)
-check_update()
+subprocess.call("omxplayergui.py ytdl " + url, shell=True)
