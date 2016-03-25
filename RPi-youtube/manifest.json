@@ -1,5 +1,8 @@
 {
   "manifest_version": 2,
+  "name": "RPi-youtube",
+  "description": "This extension runs youtube videos in chromium through omxplayer allowing a much smoother viewing",
+  "version": "0.2",
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwBv85vboromfEr5leH2y
 9zpxlSb87o5xhhxe3GmVoU0CCC/Dmi6vdmbkj0dxtDotLO/rok0SaZy0bacHxUB/
 JpZLCZlOvXeWH9b16p9MzKJA6mJcgxrGxV/VYW3136cEVpIIfxVFtMpSsBg6tfku
@@ -7,9 +10,6 @@ co2DOIVcWB7YzeLVCh68cILaqei5srY/7fgJzHxaNI3plpP4vR1sAzhUe727mnfb
 2MsifEt0SXbRsUmiGx4AbFn7f4dx6hpqYp1/f2OlusAgz0oGoOKFG0QsNfM5GyZt
 ksCcthSnLDubycDIp3ep9MSeNWQJ1EcDertpR6KQNwNGHCYmu9sW6TtFetUvC9fv
 xwIDAQAB",
-  "name": "RPi-youtube",
-  "description": "This extension runs youtube videos in chromium through omxplayer allowing a much smoother viewing",
-  "version": "0.2",
   "content_scripts": [
     {
       "matches": ["*://*.youtube.com/watch*"],
