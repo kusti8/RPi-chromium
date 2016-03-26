@@ -1,11 +1,10 @@
 sudo -s <<EOF
 apt-get install omxplayer -y
 EOF
-wget http://steinerdatenbank.de/software/kweb-1.7.tar.gz
-tar -xzf kweb-1.7.tar.gz
-cd kweb-1.7
-./debinstall
-ginstall-ytdl
+wget http://steinerdatenbank.de/software/kweb-1.7.0.tar.gz
+tar -xzf kweb-1.7.0.tar.gz
+cd kweb-1.7.0
+yes | ./debinstall
 sudo -s <<EOF
 cd ..
 cd ..
