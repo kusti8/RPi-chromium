@@ -6,11 +6,11 @@ tar -xzf kweb-1.7.0.tar.gz
 cd kweb-1.7.0
 yes | ./debinstall
 sudo -s <<EOF
-if [ ! -d /etc/chromium-browser ]; then
-    chmod +x install-chromium.sh
-  ./install.chromium.sh
-fi
 cd ..
+if [ ! -d /etc/chromium-browser ]; then
+  chmod +x install-chromium.sh
+  ./install-chromium.sh
+fi
 cp native/run_omxplayer.py /usr/bin/run_omxplayer.py
 mkdir /etc/chromium-browser/native-messaging-hosts
 cp native/run_omx.json /etc/chromium-browser/native-messaging-hosts/run_omx.json
