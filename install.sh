@@ -14,7 +14,6 @@ if [ ! -d /etc/chromium-browser ]; then
   dpkg -i chromium-browser-l10n_48.0.2564.82-0ubuntu0.15.04.1.1193_all.deb chromium-browser_48.0.2564.82-0ubuntu0.15.04.1.1193_armhf.deb
 fi
 cd ..
-cd ..
 cp native/run_omxplayer.py /usr/bin/run_omxplayer.py
 mkdir /etc/chromium-browser/native-messaging-hosts
 cp native/run_omx.json /etc/chromium-browser/native-messaging-hosts/run_omx.json
