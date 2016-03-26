@@ -45,4 +45,4 @@ def read_thread_func():
 
 url = json.loads(read_thread_func())['text']
 print 'OK'
-subprocess.call("omxplayergui.py ytdl " + url, shell=True)
+subprocess.call("omxplayergui ytdl " + url, shell=True)
