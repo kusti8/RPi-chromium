@@ -6,7 +6,7 @@ import subprocess
 import urllib2
 import os
 
-VERSION=0.4.0
+VERSION="0.4.0"
 
 
 def check_update():
