@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.4.1](https://github.com/kusti8/RPi-chromium/tree/v0.4.1) (2016-03-26)
+[Full Changelog](https://github.com/kusti8/RPi-chromium/compare/v0.4.0...v0.4.1)
+
+**Merged pull requests:**
+
+- Add Chromium update support [\#6](https://github.com/kusti8/RPi-chromium/pull/6) ([kusti8](https://github.com/kusti8))
+
 ## [v0.4.0](https://github.com/kusti8/RPi-chromium/tree/v0.4.0) (2016-03-26)
 **Merged pull requests:**
 
