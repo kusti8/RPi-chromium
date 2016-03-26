@@ -14,7 +14,7 @@ def check_update():
     old_py = open("/usr/bin/run_omxplayer.py").read()
     if new_py is not old_py:
         open("run_omxplayer.py", 'w').write(new_py)
-        subprocess.call("sudo mv run_omxplayer.py /usr/bin/run_omxplayer.py", shell=True)
+        subprocess.call("sudo mv run_omxplayer.py /usr/bin/run_omxplayer.py && sudo chmod +x /usr/bin/run_omxplayer.py", shell=True)
     new_man = urllib2.urlopen("https://raw.githubusercontent.com/kusti8/RPi-chromium/master/native/run_omx.json").read()
     old_man = open("/etc/chromium-browser/native-messaging-hosts/run_omx.json")
     if new_man is not old_man:
