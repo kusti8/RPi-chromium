@@ -1,5 +1,8 @@
 # Change Log
 
+## [v0.4.2](https://github.com/kusti8/RPi-chromium/tree/v0.4.2) (2016-03-26)
+[Full Changelog](https://github.com/kusti8/RPi-chromium/compare/v0.4.1...v0.4.2)
+
 ## [v0.4.1](https://github.com/kusti8/RPi-chromium/tree/v0.4.1) (2016-03-26)
 [Full Changelog](https://github.com/kusti8/RPi-chromium/compare/v0.4.0...v0.4.1)
 
