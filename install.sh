@@ -11,6 +11,7 @@ if [ ! -d /etc/chromium-browser ]; then
   chmod +x install-chromium.sh
   ./install-chromium.sh
 fi
+cp install-chromium.sh /usr/bin/
 cp native/run_omxplayer.py /usr/bin/run_omxplayer.py
 mkdir /etc/chromium-browser/native-messaging-hosts
 cp native/run_omx.json /etc/chromium-browser/native-messaging-hosts/run_omx.json
