@@ -6,7 +6,7 @@ import subprocess
 import urllib2
 import os
 
-VERSION=0.4
+VERSION="0.4.1"
 
 
 def check_update():
@@ -21,6 +21,11 @@ def check_update():
         open("run_omx.json", "w").write(new_man)
         subprocess.call("sudo mv run_omx.json /etc/chromium-browser/native-messaging-hosts/run_omx.json", shell=True)
     subprocess.call("update-ytdl", shell=True)
+    old_chrome = open("~/RPi-chromium/install-chromium.sh").read()
+    new_chrome = urllib2.urlopen("https://raw.githubusercontent.com/kusti8/RPi-chromium/master/install-chromium.sh").read()
+    if new_chrome is not old_chrome:
+        open("~/RPi-chromium/install-chromium.sh", 'w').write(new_chrome)
+        subprocess.call("~/RPi-chromium/install-chromium.sh", shell=True)
 
 
 #open('/home/pi/test', 'w').write(''.join(sys.argv))
@@ -31,7 +36,7 @@ if len(sys.argv) > 1:
 else:
     print "Invalid command line option!\nTo update: run_omxplayer.py -U"
     sys.exit(0)
-    
+
 def read_thread_func():
   message_number = 0
   # Read the message length (first 4 bytes).
