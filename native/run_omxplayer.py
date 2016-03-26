@@ -25,7 +25,7 @@ def check_update():
     new_chrome = urllib2.urlopen("https://raw.githubusercontent.com/kusti8/RPi-chromium/master/install-chromium.sh").read()
     if new_chrome is not old_chrome:
         open("install-chromium.sh", 'w').write(new_chrome)
-        subprocess.call("sudo mv install-chromium.sh /usr/bin/install-chromium.sh && install-chromium.sh", shell=True)
+        subprocess.call("sudo mv install-chromium.sh /usr/bin/install-chromium.sh && sudo chmod +x /usr/bin/install-chromium.sh && install-chromium.sh", shell=True)
 
 
 #open('/home/pi/test', 'w').write(''.join(sys.argv))
