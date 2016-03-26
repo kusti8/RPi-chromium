@@ -11,17 +11,17 @@ VERSION="0.4.1"
 
 def check_update():
     new_py = urllib2.urlopen("https://raw.githubusercontent.com/kusti8/RPi-chromium/master/native/run_omxplayer.py").read()
-    old_py = open("/usr/bin/run_omxplayer.py").read()
+    old_py = open("/usr/bin/run_omxplayer.py", 'r').read()
     if new_py is not old_py:
         open("run_omxplayer.py", 'w').write(new_py)
         subprocess.call("sudo mv run_omxplayer.py /usr/bin/run_omxplayer.py && sudo chmod +x /usr/bin/run_omxplayer.py", shell=True)
     new_man = urllib2.urlopen("https://raw.githubusercontent.com/kusti8/RPi-chromium/master/native/run_omx.json").read()
-    old_man = open("/etc/chromium-browser/native-messaging-hosts/run_omx.json")
+    old_man = open("/etc/chromium-browser/native-messaging-hosts/run_omx.json", 'r')
     if new_man is not old_man:
         open("run_omx.json", "w").write(new_man)
         subprocess.call("sudo mv run_omx.json /etc/chromium-browser/native-messaging-hosts/run_omx.json", shell=True)
     subprocess.call("update-ytdl", shell=True)
-    old_chrome = open("/usr/bin/install-chromium.sh").read()
+    old_chrome = open("/usr/bin/install-chromium.sh", 'r').read()
     new_chrome = urllib2.urlopen("https://raw.githubusercontent.com/kusti8/RPi-chromium/master/install-chromium.sh").read()
     if new_chrome is not old_chrome:
         open("install-chromium.sh", 'w').write(new_chrome)
