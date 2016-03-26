@@ -21,10 +21,10 @@ def check_update():
         open("run_omx.json", "w").write(new_man)
         subprocess.call("sudo mv run_omx.json /etc/chromium-browser/native-messaging-hosts/run_omx.json", shell=True)
     subprocess.call("update-ytdl", shell=True)
-    old_chrome = open("~/RPi-chromium/install-chromium.sh").read()
+    old_chrome = open(os.path.expanduser("~/RPi-chromium/install-chromium.sh")).read()
     new_chrome = urllib2.urlopen("https://raw.githubusercontent.com/kusti8/RPi-chromium/master/install-chromium.sh").read()
     if new_chrome is not old_chrome:
-        open("~/RPi-chromium/install-chromium.sh", 'w').write(new_chrome)
+        open(os.path.expanduser("~/RPi-chromium/install-chromium.sh"), 'w').write(new_chrome)
         subprocess.call("~/RPi-chromium/install-chromium.sh", shell=True)
 
 
