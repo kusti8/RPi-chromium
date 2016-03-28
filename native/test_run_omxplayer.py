@@ -7,7 +7,7 @@ from run_omxplayer import read_thread_func, check_arguments, check_update
 from time import sleep
 def run_stdin():
     sleep(1)
-    sys.stdout.write(struct.pack('i', len("Testing")) + 'Testing')
+    sys.stdin.write(struct.pack('i', len("Testing")) + 'Testing')
 class TestClass:
     def test_stdin(self):
          t = Thread(target=run_stdin)
