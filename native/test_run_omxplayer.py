@@ -11,7 +11,7 @@ class TestClass:
         sleep(1)
         sys.stdout.write(struct.pack('i', len("Testing")) + 'Testing')
     def test_stdin(self):
-         t = threading.Thread(worker=run_stdin)
+         t = Thread(worker=run_stdin)
          assert read_thread_func() == 'Testing'
     def test_argparse(self):
         # Normal 1 arg not update
@@ -26,7 +26,7 @@ class TestClass:
         # Check called update
         testargs = ['run_omxplayer.py', '-U']
         with patch.object(sys, 'argv', testargs):
-            with patch('check_update') as mock:
+            with patch('run_omxplayer.check_update') as mock:
                 check_arguments()
             mock.assert_called_with(42)
 
