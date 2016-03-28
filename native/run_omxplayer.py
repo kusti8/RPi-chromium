@@ -27,15 +27,16 @@ def check_update():
         open("install-chromium.sh, 'w').write(new_chrome)
         subprocess.call("sudo mv install-chromium.sh /usr/bin/install-chromium.sh && install-chromium.sh", shell=True)
 
-
+def check_arguments():
 #open('/home/pi/test', 'w').write(''.join(sys.argv))
-if len(sys.argv) > 1:
-    if sys.argv[1] == '-U':
-        check_update()
-        sys.exit(0)
-else:
-    print "Invalid command line option!\nTo update: run_omxplayer.py -U"
-    sys.exit(0)
+    if len(sys.argv) > 1:
+        if sys.argv[1] == '-U':
+            check_update()
+            sys.exit(0)
+    else:
+        print "Invalid command line option!\nTo update: run_omxplayer.py -U"
+        sys.exit(-1)
+    return True
 
 def read_thread_func():
   message_number = 0
@@ -47,7 +48,10 @@ def read_thread_func():
   text = sys.stdin.read(text_length).decode('utf-8')
   return text
 
+check_arguments()
 
-url = json.loads(read_thread_func())['text']
-print 'OK'
-subprocess.call("omxplayergui ytdl " + url, shell=True)
+def run_main():
+    url = json.loads(read_thread_func())['text']
+    print 'OK'
+    subprocess.call("omxplayergui ytdl " + url, shell=True)
+run_main()
