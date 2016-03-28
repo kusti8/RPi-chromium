@@ -2,12 +2,16 @@ import pytest
 import struct
 import sys
 from mock import patch
+from threading import Thread
 from run_omxplayer import read_thread_func, check_arguments, check_update
-
+from time import sleep
 
 class TestClass:
+    def run_stdin(self):
+        sleep(1)
+        sys.stdout.write(struct.pack('i', len("Testing")) + 'Testing')
     def test_stdin(self):
-         sys.stdout.write(struct.pack('i', len("Testing")) + 'Testing')
+         t = threading.Thread(worker=run_stdin)
          assert read_thread_func() == 'Testing'
     def test_argparse(self):
         # Normal 1 arg not update
