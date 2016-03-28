@@ -2,7 +2,7 @@ import pytest
 import struct
 import sys
 from mock import patch
-from run_omxplayer import *
+from run_omxplayer import read_thread_func, check_arguments, check_update
 
 
 class TestClass:
