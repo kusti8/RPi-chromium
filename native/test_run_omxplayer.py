@@ -4,6 +4,7 @@ import sys
 from mock import patch
 from run_omxplayer import *
 
+
 class TestClass:
     def test_stdin(self):
          sys.stdout.write(struct.pack('i', len("Testing")) + 'Testing')
