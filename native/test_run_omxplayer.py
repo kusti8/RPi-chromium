@@ -11,6 +11,7 @@ def run_stdin(self):
 class TestClass:
     def test_stdin(self):
          t = Thread(target=run_stdin)
+         t.start()
          assert read_thread_func() == 'Testing'
     def test_argparse(self):
         # Normal 1 arg not update
