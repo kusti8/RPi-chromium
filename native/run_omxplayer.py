@@ -56,10 +56,11 @@ def read_thread_func():
   text = sys.stdin.read(text_length).decode('utf-8')
   return text
 
-check_arguments()
-
 def run_main():
     url = json.loads(read_thread_func())['text']
     print 'OK'
     subprocess.call("omxplayergui ytdl " + url, shell=True)
-run_main()
+
+if __name__ == "__main__":
+    check_arguments()
+    run_main()
