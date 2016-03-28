@@ -7,14 +7,7 @@ from run_omxplayer import read_thread_func, check_arguments, check_update
 from time import sleep
 import io
 
-def run_stdin():
-    sleep(1)
-    sys.stdin = io.StringIO(struct.pack('i', len("Testing")) + 'Testing')
 class TestClass:
-    def test_stdin(self):
-         t = Thread(target=run_stdin)
-         t.start()
-         assert read_thread_func() == 'Testing'
     def test_argparse(self):
         # Normal 1 arg not update
         testargs = ['run_omxplayer.py', 'testing']
