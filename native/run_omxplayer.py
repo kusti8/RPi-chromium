@@ -6,26 +6,34 @@ import subprocess
 import urllib2
 import os
 
-VERSION="0.4.1"
-
+VERSION="0.5.0"
+BRANCH = 'travis'
 
 def check_update():
-    new_py = urllib2.urlopen("https://raw.githubusercontent.com/kusti8/RPi-chromium/master/native/run_omxplayer.py").read()
-    old_py = open("/usr/bin/run_omxplayer.py").read()
-    if new_py is not old_py:
+    #GET PATHS
+    pypath = os.getenv('TRAVIS_BUILD_DIR', '/usr/bin/run_omxplayer.py')
+    manpath = os.getenv('MANPATH', '/etc/chromium-browser/native-messaging-hosts/run_omx.json')
+    chromepath = os.getenv('CHROMEPATH', '/usr/bin/install-chromium.sh')
+    testing = os.getenv('TESTING', False)
+
+    new_py = urllib2.urlopen("https://raw.githubusercontent.com/kusti8/RPi-chromium/%s/native/run_omxplayer.py" % BRANCH).read()
+    old_py = open(pypath).read()
+    if new_py != old_py:
         open("run_omxplayer.py", 'w').write(new_py)
-        subprocess.call("sudo mv run_omxplayer.py /usr/bin/run_omxplayer.py && sudo chmod +x /usr/bin/run_omxplayer.py", shell=True)
-    new_man = urllib2.urlopen("https://raw.githubusercontent.com/kusti8/RPi-chromium/master/native/run_omx.json").read()
-    old_man = open("/etc/chromium-browser/native-messaging-hosts/run_omx.json")
-    if new_man is not old_man:
+        subprocess.call("sudo mv run_omxplayer.py " + pypath + " && sudo chmod +x " + pypath, shell=True)
+    new_man = urllib2.urlopen("https://raw.githubusercontent.com/kusti8/RPi-chromium/%s/native/run_omx.json" % BRANCH).read()
+    old_man = open(manpath)
+    if new_man != old_man:
         open("run_omx.json", "w").write(new_man)
-        subprocess.call("sudo mv run_omx.json /etc/chromium-browser/native-messaging-hosts/run_omx.json", shell=True)
+        subprocess.call("sudo mv run_omx.json " + manpath, shell=True)
     subprocess.call("update-ytdl", shell=True)
-    old_chrome = open("/usr/bin/install-chromium.sh").read()
-    new_chrome = urllib2.urlopen("https://raw.githubusercontent.com/kusti8/RPi-chromium/master/install-chromium.sh").read()
-    if new_chrome is not old_chrome:
-        open("install-chromium.sh, 'w').write(new_chrome)
-        subprocess.call("sudo mv install-chromium.sh /usr/bin/install-chromium.sh && install-chromium.sh", shell=True)
+    old_chrome = open(chromepath).read()
+    new_chrome = urllib2.urlopen("https://raw.githubusercontent.com/kusti8/RPi-chromium/%s/install-chromium.sh" % BRANCH).read()
+    if new_chrome != old_chrome:
+        open("install-chromium.sh", 'w').write(new_chrome)
+        subprocess.call("sudo mv install-chromium.sh " + chromepath, shell=True)
+        if testing == False:
+            subprocess.call("install-chromium.sh", shell=True)
 
 def check_arguments():
 #open('/home/pi/test', 'w').write(''.join(sys.argv))
