@@ -9,9 +9,7 @@ from io import StringIO
 
 def run_stdin():
     sleep(1)
-    a = StringIO()
-    a.write(struct.pack('i', len("Testing")) + 'Testing')
-    sys.stdin = a
+    sys.stdin = io.StringIO(struct.pack('i', len("Testing")) + 'Testing')
 class TestClass:
     def test_stdin(self):
          t = Thread(target=run_stdin)
