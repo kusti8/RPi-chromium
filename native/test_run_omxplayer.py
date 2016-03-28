@@ -10,7 +10,7 @@ def run_stdin(self):
     sys.stdout.write(struct.pack('i', len("Testing")) + 'Testing')
 class TestClass:
     def test_stdin(self):
-         t = Thread(worker=run_stdin)
+         t = Thread(target=run_stdin)
          assert read_thread_func() == 'Testing'
     def test_argparse(self):
         # Normal 1 arg not update
@@ -28,7 +28,7 @@ class TestClass:
             with patch('run_omxplayer.check_update') as mock:
                 with pytest.raises(SystemExit):
                     check_arguments()
-            mock.assert_called_with(42)
+            mock.assert_called_with()
 
     def test_update(self):
         check_update()
