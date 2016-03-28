@@ -22,7 +22,7 @@ class TestClass:
         # Check called update
         testargs = ['run_omxplayer.py', '-U']
         with patch.object(sys, 'argv', testargs):
-            with patch.object('check_update') as mock:
+            with patch('check_update') as mock:
                 check_arguments()
             mock.assert_called_with(42)
 

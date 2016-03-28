@@ -11,7 +11,7 @@ BRANCH = 'travis'
 
 def check_update():
     #GET PATHS
-    pypath = os.getenv('TRAVIS_BUILD_DIR', '/usr/bin/run_omxplayer.py')
+    pypath = os.getenv('PYTEST', '/usr/bin/run_omxplayer.py')
     manpath = os.getenv('MANPATH', '/etc/chromium-browser/native-messaging-hosts/run_omx.json')
     chromepath = os.getenv('CHROMEPATH', '/usr/bin/install-chromium.sh')
     testing = os.getenv('TESTING', False)
