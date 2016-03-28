@@ -5,7 +5,7 @@ from mock import patch
 from threading import Thread
 from run_omxplayer import read_thread_func, check_arguments, check_update
 from time import sleep
-from io import StringIO
+import io
 
 def run_stdin():
     sleep(1)
