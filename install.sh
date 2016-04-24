@@ -1,16 +1,4 @@
-sudo -s <<EOF
-apt-get install omxplayer -y
-EOF
-wget http://steinerdatenbank.de/software/kweb-1.7.0.tar.gz
-tar -xzf kweb-1.7.0.tar.gz
-cd kweb-1.7.0
-yes | ./debinstall
-sudo -s <<EOF
-cd ..
-cp install-chromium.sh /usr/bin/
-cp native/run_omxplayer.py /usr/bin/run_omxplayer.py
-mkdir /etc/chromium-browser/native-messaging-hosts
-cp native/run_omx.json /etc/chromium-browser/native-messaging-hosts/run_omx.json
-chmod +x /usr/bin/run_omxplayer.py
-echo "Done! Now install the RPi-youtube extension."
-EOF
+wget -qO - http://bintray.com/user/downloadSubjectPublicKey?username=bintray | sudo apt-key add -
+echo "deb http://dl.bintray.com/kusti8/chromium-rpi jessie main" | sudo tee -a /etc/apt/sources.list
+sudo apt-get update
+sudo apt-get install chromium-browser rpi-youtube -y
