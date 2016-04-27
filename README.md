@@ -1,7 +1,7 @@
 # RPi-chromium 
 Chromium tools for the Raspberry Pi. This includes RPi-youtube which uses omxplayerGUI to play youtube videos at the click of a button. More info can be found in the slowly growing Wiki.
 
-# Feature requests? Open an issue!
+## Feature requests? Open an issue!
 
 ## Install
 First clone this: `git clone https://github.com/kusti8/RPi-chromium`
