@@ -2,24 +2,19 @@
   "manifest_version": 2,
   "name": "RPi-youtube",
   "description": "This extension runs youtube videos in chromium through omxplayer allowing a much smoother viewing",
-  "version": "0.2",
+  "version": "0.3",
   "browser_action": {
       "default_icon": "icon_38.png",
       "default_title": "Extract video!"
   },
-  "content_scripts": [
-    {
-      "matches": ["*://*.youtube.com/watch*"],
-      "js": ["spin.js","get_url.js"]
-    }
-  ],
   "background": {
     "scripts": ["background.js"],
     "persistent": false
   },
   "permissions": [
     "tabs",
-    "nativeMessaging"
+    "nativeMessaging",
+    "*://*youtube.com/*"
   ],
   "icons": {"48": "icon_48.png",
           "128": "icon_128.png" }
