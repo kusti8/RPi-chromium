@@ -16,9 +16,8 @@ function matchRuleShort(str, rule) {
 chrome.browserAction.onClicked.addListener(function (tab) {
     chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
         var url = tabs[0].url;
-        if (url === matchRuleShort(url, '*://*youtube.com/watch*')) {
-            chrome.tabs.executeScript(null, {file: "jq.js"})
-            chrome.tabs.executeScript({code: "$('video').pause()"})
+        if (matchRuleShort(url, '*://*youtube.com/watch*')) {
+            chrome.tabs.executeScript(null, {file: "injected.js"})
         }
         console.log("Got click")
         console.log(url)
