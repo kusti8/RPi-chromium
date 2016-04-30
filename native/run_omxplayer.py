@@ -6,7 +6,7 @@ import subprocess
 import urllib2
 import os
 
-VERSION="0.4.3"
+VERSION="0.5"
 
 
 def check_update():
@@ -43,5 +43,11 @@ def read_thread_func():
 
 
 url = json.loads(read_thread_func())['text']
+FNULL = open(os.devnull, 'w')
 print 'OK'
+try:
+    urllib2.urlopen('http://localhost:9192')
+except:
+    subprocess.Popen(['nohup', 'ytdl_server.py', '&'], stdout=FNULL)
+
 subprocess.call("omxplayergui ytdl " + url, shell=True)
