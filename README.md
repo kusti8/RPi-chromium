@@ -16,3 +16,7 @@ This is currently a git for various Chromium additions to make it run smoother o
 
 ## Limitations
 Right now, it's bare minimum. Some omxplayer options cannot be changed through the script, but through omxplayerGUI options, which are a little less intuitive. 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/kusti8/rpi-chromium/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
