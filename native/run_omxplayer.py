@@ -48,6 +48,6 @@ print 'OK'
 try:
     urllib2.urlopen('http://localhost:9192')
 except:
-    subprocess.Popen(['nohup', 'ytdl_server.py', '&'], stdout=FNULL)
+    subprocess.Popen(['nohup', 'start_ytdl_server.sh', '&'], stdout=FNULL)
 
 subprocess.call("omxplayergui ytdl " + url, shell=True)
