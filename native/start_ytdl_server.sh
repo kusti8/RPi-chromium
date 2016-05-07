@@ -10,5 +10,5 @@ while ((1)); do
         wget -qO /dev/null http://localhost:9192/stop
         exit 0
     fi
-    sleep 20
+    sleep 5
 done
