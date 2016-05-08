@@ -56,6 +56,49 @@ To update which should be done regularly:
 <p>The native app is called run_omxplayer.py and is a simple python script which reads the input through stdin and then runs omxplayerGUI with that url. run_omx.json is a manifest file which is installed in /etc/chromium-browser/native-messaging-hosts which tells Chromium where to find the program and all the necessary information. Once a message is sent to run_omxplayer.py, it reads that and runs omxplayerGUI.</p>
 
 <h2>
+<a id="details" class="anchor" href="#details" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Details</h2>
+
+<p>A post by gkreidl (edited) sums it up nicely:</p>
+
+<blockquote>
+<p>If you install kusti8's rpi-youtube extension to enable playing web video in high resolution with omxplayer(GUI), you will also get the kweb package, which provides omxplayerGUI. The extension basically adds a button to the chromium-browser interface similar like kweb's "Play" button, which sends the video page URL to omxplayerGUI, which extracts the real video URL (using youtube-dl) and plays it. This doesn't only work for youtube, but for 600+ video websites and all websites containing static HTML5 video tags. This tutorial is for people who are not familiar with omxplayerGUI and the kweb environment.</p>
+
+<h3>
+<a id="youtube-dl-support" class="anchor" href="#youtube-dl-support" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>youtube-dl support</h3>
+
+<p>During installation you will be asked, if you want to install the the github version of youtube-dl, which is highly recommended. If you missed that, you can install (and update) it later on:
+Start kweb (from the application menu). Click on "Applications". At the bottom you'll see a heading "Youtube-dl Tools". The first two buttons let you install and update (for later use) the github version of youtube-dl (some other buttons will be explained later).</p>
+
+<h3>
+<a id="using-the-youtube-dl-server" class="anchor" href="#using-the-youtube-dl-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using the youtube-dl server</h3>
+
+<p>If you have installed the github version of youtube-dl, you will be able to use the youtube-dl server (another tool from the kweb package). It will speed up access time for web videos considerably: the time it takes from clicking the button to start playing the video (2-3 seconds, the first video may take a bit longer). It's especially useful if you plan to watch a lot of web videos. It starts automatically once you watch your first video.</p>
+
+<h3>
+<a id="configuring-omxplayergui" class="anchor" href="#configuring-omxplayergui" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuring omxplayerGUI</h3>
+
+<p>omxplayerGUI has lots of configuration options. The easiest way to configure it is the following:
+Open the omxplayerGUI frontend from the Application menu (Multimedia).
+Click the "Help" button to open the manual in your PDF reader. Click on "7) omxplayerGUI settings" on the content page.
+Click the "Edit Settings" button in omxplayerGUI. This will close the frontend and open a specially configured kweb instance showing the "Settings" page.
+Now you can edit all the settings you like. Some are very special. The manual will give you some hints, which may be important for you.
+After applying some changes, you can save them as a "Preset" which will make them accessible with one mouse click later on. Check the manual for more details.
+If you close kweb, the omxplayerGUI frontend will be restarted using the new settings (good for testing them).</p>
+
+<h3>
+<a id="switching-to-full-screen-mode" class="anchor" href="#switching-to-full-screen-mode" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Switching to full screen mode</h3>
+
+<p>omxplayerGUI can be preset to display video in different ways. By default it will run in a maximized window with controls at the bottom. To switch to full screen view, while a video is already running, press ALT+h (hide controls) followed by ALT+f (full screen). To return to window mode, press both key combinations again.</p>
+
+<h3>
+<a id="offset-between-window-and-video-content" class="anchor" href="#offset-between-window-and-video-content" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Offset between window and video content</h3>
+
+<p>If you experience an offset between the video window and the video content, it is caused by "overscan" settings. omxplayer, kodi and all software using the screen hardware directly, use the hardware coordinates of the current screen resolution, while the frame buffer (used by the GUI) may have a different size if overscan is enabled.
+Remove all overscan and framebuffer size settings fom /boot/config.txt. Overscan is never needed for monitors and TVs can be set to the right screen size (no borders etc) from their menu functions.
+omxplayerGUI can also be used to play any media content from your file system. For more details, check the manual. If you have question not related to rpi-youtube, please ask them in <a href="https://www.raspberrypi.org/forums/viewtopic.php?t=40860">this thread</a></p>
+</blockquote>
+
+<h2>
 <a id="support" class="anchor" href="#support" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support</h2>
 
 <p>Any feature requests can be opened as issues on the Github page. Questions and problems are best answered here <a href="https://www.raspberrypi.org/forums/viewtopic.php?t=121195">https://www.raspberrypi.org/forums/viewtopic.php?t=121195</a></p>
