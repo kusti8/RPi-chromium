@@ -13,4 +13,3 @@ sudo mkdir /etc/chromium-browser/native-messaging-hosts
 sudo cp native/run_omx.json /etc/chromium-browser/native-messaging-hosts/
 chromium-browser chrome://extensions &
 sudo leafpad /etc/chromium-browser/native-messaging-hosts/run_omx.json
-
