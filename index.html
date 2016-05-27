@@ -65,7 +65,7 @@ run_omxplayer.py -U
 <p>A post by gkreidl (edited) sums it up nicely:</p>
 
 <blockquote>
-<p>If you install kusti8's rpi-youtube extension to enable playing web video in high resolution with omxplayer(GUI), you will also get the kweb package, which provides omxplayerGUI. The extension basically adds a button to the chromium-browser interface similar like kweb's "Play" button, which sends the video page URL to omxplayerGUI, which extracts the real video URL (using youtube-dl) and plays it. This doesn't only work for youtube, but for 600+ video websites and all websites containing static HTML5 video tags. This tutorial is for people who are not familiar with omxplayerGUI and the kweb environment.</p>
+<p>If you install kusti8's rpi-youtube extension to enable playing web video in high resolution with omxplayer(GUI), you will also get the kweb package, which provides omxplayerGUI. The extension basically adds a button to the chromium-browser interface similar like kweb's "Play" button, which sends the video page URL to omxplayerGUI, which extracts the real video URL (using youtube-dl) and plays it. This doesn't only work for youtube, but for 600+ video websites and all websites containing static HTML5 video tags. This tutorial is for people who are not familiar with omxplayerGUI and the kweb environment. It will also show you, how to manage the youtube-dl server.</p>
 
 <h3>
 <a id="youtube-dl-support" class="anchor" href="#youtube-dl-support" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>youtube-dl support</h3>
@@ -76,7 +76,25 @@ Start kweb (from the application menu). Click on "Applications". At the bottom y
 <h3>
 <a id="using-the-youtube-dl-server" class="anchor" href="#using-the-youtube-dl-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using the youtube-dl server</h3>
 
-<p>If you have installed the github version of youtube-dl, you will be able to use the youtube-dl server (another tool from the kweb package). It will speed up access time for web videos considerably: the time it takes from clicking the button to start playing the video (2-3 seconds, the first video may take a bit longer). It's especially useful if you plan to watch a lot of web videos. It starts automatically once you watch your first video.</p>
+<p>If you have installed the github version of youtube-dl, you will be able to use the youtube-dl server (another tool from the kweb package). It will speed up access time for web videos considerably: the time it takes from clicking the button to start playing the video (1-3 seconds, the first video may take a bit longer). It's especially useful if you plan to watch a lot of web videos. 
+<strong>Note: The latest version of rpi-youtube starts the the youtube-dl server automatically, if it is not running already. It will also stop the server cleanly a few seconds after you have closed the chromium browser.</strong></p>
+
+<h3>
+<a id="starting-the-youtube-dl-server-separately" class="anchor" href="#starting-the-youtube-dl-server-separately" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Starting the youtube-dl server separately</h3>
+
+<ol>
+<li>From the kweb Application page: Click the "Start Server" button.</li>
+<li>From a terminal: Type <code>ytdl_server.py</code>In both cases the server will run inside a terminal. Do not simply close the terminal, because that will leave the server in an undefined state because of its multi-threaded nature (a special Python problem). Use one of the stop methods described below.</li>
+<li>Start the omxplayerGUI frontend from the application menu. This will also start the server. Closing the frontend will automatically stop the server again (no separate stop method needed).</li>
+</ol>
+
+<h3>
+<a id="stopping-the-youtube-dl-server" class="anchor" href="#stopping-the-youtube-dl-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Stopping the youtube-dl server</h3>
+
+<ol>
+<li>From the kweb Application page: Click the "Stop Server" button.</li>
+<li>From inside chromium: go to http://localhost:9192/stop (add this as a bookmark!).</li>
+</ol>
 
 <h3>
 <a id="configuring-omxplayergui" class="anchor" href="#configuring-omxplayergui" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuring omxplayerGUI</h3>
@@ -98,7 +116,7 @@ If you close kweb, the omxplayerGUI frontend will be restarted using the new set
 <a id="offset-between-window-and-video-content" class="anchor" href="#offset-between-window-and-video-content" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Offset between window and video content</h3>
 
 <p>If you experience an offset between the video window and the video content, it is caused by "overscan" settings. omxplayer, kodi and all software using the screen hardware directly, use the hardware coordinates of the current screen resolution, while the frame buffer (used by the GUI) may have a different size if overscan is enabled.
-Remove all overscan and framebuffer size settings fom /boot/config.txt. Overscan is never needed for monitors and TVs can be set to the right screen size (no borders etc) from their menu functions.
+Remove all overscan and framebuffer size settings ftom /boot/config.txt. Overscan is never needed for monitors and TVs can be set to the right screen size (no borders etc) from their menu functions.
 omxplayerGUI can also be used to play any media content from your file system. For more details, check the manual. If you have question not related to rpi-youtube, please ask them in <a href="https://www.raspberrypi.org/forums/viewtopic.php?t=40860">this thread</a></p>
 </blockquote>
 
