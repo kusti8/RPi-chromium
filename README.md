@@ -15,6 +15,3 @@ The installer will install youtube-dl and the native script. **You must install 
 
 ## What is this?
 This is currently a git for various Chromium additions to make it run smoother on the raspberry pi, starting with the youtube local extension. It is currently in beta, but getting more stable.
-
-## Limitations
-Right now, it's bare minimum. Some omxplayer options cannot be changed through the script, but through omxplayerGUI options, which are a little less intuitive. 
