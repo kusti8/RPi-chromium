@@ -1,0 +1,259 @@
+#! /usr/bin/python
+
+# Copyright (C) 2012  Canonical Ltd.
+# Author: Colin Watson <cjwatson@ubuntu.com>
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+"""Copy package publication records."""
+
+from __future__ import print_function
+
+from optparse import OptionParser, SUPPRESS_HELP, Values
+import sys
+
+from launchpadlib.errors import HTTPError
+from launchpadlib.launchpad import Launchpad
+try:
+    from ubuntutools.question import YesNoQuestion
+except ImportError:
+    print("No ubuntutools installed: sudo apt-get install ubuntu-dev-tools")
+    exit()
+
+import lputils
+
+
+def find_publications(options, package):
+    source = lputils.find_latest_published_source(options, package)
+    yield source, source.source_package_version
+
+    if options.include_binaries:
+        for binary in source.getPublishedBinaries():
+            yield binary, binary.binary_package_version
+
+
+def copy_packages(options, packages):
+    ret = True
+
+    for package in packages:
+        print("Copy candidates:")
+
+        try:
+            source = lputils.find_latest_published_source(options, package)
+        except lputils.PackageMissing as error:
+            print(error)
+            if options.skip_missing:
+                print('Skipping')
+                continue
+            else:
+                # Bail with exit code non-zero.
+                return False
+        print("\t%s" % source.display_name)
+        num_copies = 1
+
+        if options.include_binaries:
+            for binary in source.getPublishedBinaries():
+                print("\t%s" % binary.display_name)
+                num_copies += 1
+
+        print("Candidate copy target: %s" % options.destination.archive)
+        if options.sponsoree:
+            print("Sponsored for: %s" % options.sponsoree)
+        if options.dry_run:
+            print("Dry run; no packages copied.")
+        else:
+            if not options.confirm_all:
+                if YesNoQuestion().ask("Copy", "no") == "no":
+                    continue
+
+            try:
+                options.destination.archive.copyPackage(
+                    source_name=package, version=source.source_package_version,
+                    from_archive=options.archive,
+                    from_series=options.series.name,
+                    from_pocket=options.pocket,
+                    to_series=options.destination.series.name,
+                    to_pocket=options.destination.pocket,
+                    include_binaries=options.include_binaries,
+                    unembargo=options.unembargo,
+                    auto_approve=options.auto_approve,
+                    silent=options.silent,
+                    sponsored=options.sponsoree)
+
+                print("%d %s requested." % (
+                    num_copies, "copy" if num_copies == 1 else "copies"))
+            except HTTPError as e:
+                print(e.content, file=sys.stderr)
+                ret = False
+
+    return ret
+
+
+def main():
+    parser = OptionParser(
+        usage="usage: %prog [options] package [...]",
+        epilog=lputils.ARCHIVE_REFERENCE_DESCRIPTION)
+    parser.add_option(
+        "-l", "--launchpad", dest="launchpad_instance", default="production")
+    parser.add_option(
+        "-n", "--dry-run", default=False, action="store_true",
+        help="only show copies that would be performed")
+    parser.add_option(
+        "-y", "--confirm-all", default=False, action="store_true",
+        help="do not ask for confirmation")
+    parser.add_option(
+        "--from", metavar="ARCHIVE", dest="archive",
+        help="copy from ARCHIVE (default: ubuntu)")
+    parser.add_option(
+        "-s", "--suite", "--from-suite", metavar="SUITE",
+        help="copy from SUITE (default: development release pocket)")
+    parser.add_option(
+        "--to", metavar="ARCHIVE",
+        help="copy to ARCHIVE (default: copy from archive)")
+    parser.add_option(
+        "--to-suite", metavar="SUITE",
+        help="copy to SUITE (default: copy from suite)")
+    parser.add_option(
+        "-e", "--version",
+        metavar="VERSION", help="package version (default: current version)")
+    parser.add_option(
+        "-b", "--include-binaries", default=False, action="store_true",
+        help="copy related binaries")
+    parser.add_option(
+        "--unembargo", default=False, action="store_true",
+        help="allow copying from a private archive to a public archive")
+    parser.add_option(
+        "--auto-approve", default=False, action="store_true",
+        help="automatically approve copy (requires queue admin permissions)")
+    parser.add_option(
+        "--silent", default=False, action="store_true",
+        help="suppress mail notifications (requires queue admin permissions)")
+    parser.add_option(
+        "--force-same-destination", default=False, action="store_true",
+        help=(
+            "force copy when source == destination (e.g. when reverting to "
+            "a previous version in the same suite)"))
+    parser.add_option(
+        "--skip-missing", default=False, action="store_true",
+        help=(
+            "When a package cannot be copied, normally this script exits "
+            "with a non-zero status.  With --skip-missing instead, the "
+            "error is printed and copying continues"))
+    parser.add_option("--sponsor", metavar="USERNAME",
+                      dest="sponsoree", default=None,
+                      help="Sponsor the sync for USERNAME (a Launchpad "
+                           "username).")
+
+    # Deprecated in favour of --to and --from.
+    parser.add_option(
+        "-d", "--distribution", default="ubuntu", help=SUPPRESS_HELP)
+    parser.add_option("-p", "--ppa", help=SUPPRESS_HELP)
+    parser.add_option("--ppa-name", help=SUPPRESS_HELP)
+    parser.add_option(
+        "-j", "--partner", default=False, action="store_true",
+        help=SUPPRESS_HELP)
+    parser.add_option(
+        "--to-primary", default=False, action="store_true",
+        help=SUPPRESS_HELP)
+    parser.add_option("--to-distribution", help=SUPPRESS_HELP)
+    parser.add_option("--to-ppa", help=SUPPRESS_HELP)
+    parser.add_option("--to-ppa-name", help=SUPPRESS_HELP)
+    parser.add_option(
+        "--to-partner", default=False, action="store_true",
+        help=SUPPRESS_HELP)
+
+    options, args = parser.parse_args()
+
+    options.launchpad = Launchpad.login_with(
+        "copy-package", options.launchpad_instance, version="devel")
+    options.destination = Values()
+    options.destination.launchpad = options.launchpad
+    options.destination.suite = options.to_suite or options.suite
+
+    if options.archive or options.to:
+        # Use modern single-option archive references.
+        if ((options.distribution and options.distribution != u'ubuntu') or
+            options.ppa or options.ppa_name or options.partner or
+            options.to_distribution or options.to_ppa or
+            options.to_ppa_name or options.to_partner):
+            parser.error(
+                "cannot use --to/--from and the deprecated archive selection "
+                "options together")
+        options.destination.archive = options.to or options.archive
+    else:
+        # Use the deprecated four-option archive specifiers.
+        if options.ppa and options.partner:
+            parser.error(
+                "cannot copy from partner archive and PPA simultaneously")
+        if options.to_ppa and options.to_partner:
+            parser.error(
+                "cannot copy to partner archive and PPA simultaneously")
+
+        options.destination.distribution = (
+            options.to_distribution or options.distribution)
+        options.destination.ppa = options.to_ppa
+        options.destination.ppa_name = options.to_ppa_name
+        options.destination.partner = options.to_partner
+
+        # In cases where source is specified, but destination is not,
+        # default to destination = source
+        if (options.ppa is not None and options.to_ppa is None and
+                not options.to_primary and not options.destination.partner):
+            options.destination.ppa = options.ppa
+        if (options.ppa_name is not None and options.to_ppa_name is None and
+                options.destination.ppa is not None):
+            options.destination.ppa_name = options.ppa_name
+        if (options.partner and not options.destination.partner and
+                not options.ppa):
+            options.destination.partner = options.partner
+
+        if options.to_primary and options.to_ppa_name is not None:
+            parser.error(
+                "--to-ppa-name option set for copy to primary archive")
+
+    lputils.setup_location(options)
+    lputils.setup_location(options.destination)
+
+    if options.archive.private and not options.destination.archive.private:
+        if not options.unembargo:
+            parser.error(
+                "copying from a private archive to a public archive requires "
+                "the --unembargo option")
+
+        # TODO some equivalent of canModifySuite check?
+
+    if (not options.force_same_destination and
+            options.distribution == options.destination.distribution and
+            options.suite == options.destination.suite and
+            options.pocket == options.destination.pocket and
+            options.archive.reference ==
+                options.destination.archive.reference):
+        parser.error("copy destination must differ from source")
+
+    if not args:
+        parser.error("You must specify some packages to copy.")
+
+    if options.sponsoree:
+        try:
+            options.sponsoree = options.launchpad.people[options.sponsoree]
+        except KeyError:
+            parser.error("Person to sponsor for not found: %s" % options.sponsoree)
+
+    if copy_packages(options, args):
+        return 0
+    else:
+        return 1
+
+
+if __name__ == '__main__':
+    sys.exit(main())
